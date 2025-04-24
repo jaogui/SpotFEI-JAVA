@@ -2,7 +2,7 @@
   João Guilherme Faber // RA: 24.124.060-5
 </p>
 
-<h1 align="center">🎧 Spotifei: Sua Central de Informações Musicais 🎶</h1>
+<h1 align="center">Spotifei</h1>
 
 <p align="center">
   Um projeto Java Swing que te permite explorar e interagir com informações sobre suas músicas e podcasts favoritos, inspirado na lógica do Spotify.
