@@ -12,4 +12,12 @@ public class Conexao {
     public static Connection conectar() throws SQLException {
         return DriverManager.getConnection(URL, USUARIO, SENHA);
     }
+    public static Connection getConexao() throws SQLException {
+        try {
+            return DriverManager.getConnection(URL, USUARIO, SENHA);
+        } catch (SQLException e) {
+            System.out.println("Erro ao conectar com o banco de dados");
+            throw e;
+        }
+    }
 }
