@@ -8,18 +8,6 @@
   Um projeto Java Swing que te permite explorar e interagir com informações sobre suas músicas e podcasts favoritos, inspirado na lógica do Spotify.
 </p>
 
-<p align="center">
-  <a href="https://github.com/SEU_USUARIO/SEU_REPOSITORIO/issues">
-    <img src="https://img.shields.io/badge/contribu%C3%A7%C3%B5es-bemvindas-brightgreen.svg?style=flat-square" alt="Contribuições são bem-vindas">
-  </a>
-  <a href="https://opensource.org/licenses/MIT">
-    <img src="https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square" alt="Licença MIT">
-  </a>
-  <a href="https://github.com/SEU_USUARIO/SEU_REPOSITORIO/releases">
-    <img src="https://img.shields.io/github/v/release/SEU_USUARIO/SEU_REPOSITORIO?style=flat-square" alt="Última versão">
-  </a>
-</p>
-
 ---
 
 ## ✨ Apresentando o Spotifei!
@@ -65,33 +53,6 @@ Este projeto foi construído com as seguintes tecnologias:
 * **Banco de Dados:**PostgreSQL
 
 
-## ⚙️ Como Executar o Projeto
-
-Siga estes passos para rodar o Spotifei na sua máquina:
-
-1.  **Pré-requisitos:**
-    * Java Development Kit (JDK) instalado.
-    * PostgreSQL instalado e configurado.
-    * Algum ambiente de desenvolvimento integrado (IDE) para Java como IntelliJ IDEA, Eclipse ou NetBeans (opcional, mas recomendado).
-
-2.  **Clonar o Repositório:**
-    ```bash
-    git clone [https://github.com/SEU_USUARIO/SEU_REPOSITORIO.git](https://github.com/SEU_USUARIO/SEU_REPOSITORIO.git)
-    cd SEU_REPOSITORIO
-    ```
-
-3.  **Configurar o Banco de Dados:**
-    * Crie um banco de dados chamado `spotifei` no seu PostgreSQL.
-    * Configure as credenciais de acesso ao banco de dados no arquivo de configuração do projeto (geralmente em algum lugar dentro da pasta `src/main/resources`).
-
-4.  **Executar o Projeto:**
-    * **Via IDE:** Abra o projeto na sua IDE Java e execute a classe principal (geralmente localizada no pacote `main` e com um nome como `Main.java` ou `SpotifeiApp.java`).
-    * **Via Maven (se aplicável):** No terminal, dentro da pasta do projeto, execute o comando:
-        ```bash
-        mvn clean javafx:run
-        ```
-        (Este comando pode variar dependendo da configuração do seu `pom.xml`).
-
 ## 🤝 Contribuições
 
 Contribuições são sempre bem-vindas! Se você tem ideias para melhorar o Spotifei, encontrou algum bug ou quer adicionar novas funcionalidades, siga estas etapas:
@@ -102,6 +63,3 @@ Contribuições são sempre bem-vindas! Se você tem ideias para melhorar o Spot
 4.  Faça o push para a branch (`git push origin feature/sua-nova-feature`).
 5.  Abra um Pull Request para que sua contribuição seja avaliada.
 
-## 📄 Licença
-
-Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
