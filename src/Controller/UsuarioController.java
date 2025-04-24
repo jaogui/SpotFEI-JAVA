@@ -1,4 +1,4 @@
-package controller;
+package Controller;
 
 import spotfei.dao.UsuarioDAO;
 import spotfei.model.Usuario;
