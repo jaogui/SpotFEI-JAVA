@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import spotfei.model.Usuario;
+import spotfei.model.PlayList;
+import spotfei.model.Musica;
 
 public class UsuarioDAO {
 
@@ -103,7 +105,55 @@ public class UsuarioDAO {
         System.out.println("Erro ao descurtir música: " + e.getMessage());
     }
 }
+public void atualizarPlayLists(Usuario usuario) {
+        Connection conn = null;
+        PreparedStatement stmtDelete = null;
+        PreparedStatement stmtInsert = null;
 
+        try {
+            conn = Conexao.getConexao();
+            String sqlDelete = "DELETE FROM playlist_musica WHERE playlist_id IN (SELECT id FROM playlist WHERE usuario_id = ?)";
+            stmtDelete = conn.prepareStatement(sqlDelete);
+            stmtDelete.setInt(1, usuario.getId());
+            stmtDelete.executeUpdate();
+
+            String sqlInsert = "INSERT INTO playlist_musica (playlist_id, musica_id) VALUES (?, ?)";
+            stmtInsert = conn.prepareStatement(sqlInsert);
+
+            for (PlayList p : usuario.getPlaylists()) {
+                int playlistId = buscarPlaylistIdPorNomeEUsuario(p.getNome(), usuario.getId(), conn); 
+
+                for (Musica m : p.getMusicas()) {
+                    stmtInsert.setInt(1, playlistId);
+                    stmtInsert.setInt(2, m.getId());
+                    stmtInsert.addBatch();
+                }
+            }
+
+            stmtInsert.executeBatch();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (stmtDelete != null) stmtDelete.close();
+                if (stmtInsert != null) stmtInsert.close();
+                if (conn != null) conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    private int buscarPlaylistIdPorNomeEUsuario(String nome, int usuarioId, Connection conn) throws SQLException {
+        PreparedStatement stmt = conn.prepareStatement("SELECT id FROM playlist WHERE nome = ? AND usuario_id = ?");
+        stmt.setString(1, nome);
+        stmt.setInt(2, usuarioId);
+        var rs = stmt.executeQuery();
+        if (rs.next()) {
+            return rs.getInt("id");
+        }
+        throw new SQLException("Playlist não encontrada: " + nome);
+    }
 
     
 }
