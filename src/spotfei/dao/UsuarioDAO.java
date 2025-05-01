@@ -75,4 +75,35 @@ public class UsuarioDAO {
             e.printStackTrace();
         }
     }
+    public void curtirMusica(int usuarioId, int musicaId) {
+    String sql = "INSERT INTO musica_curtida (usuario_id, musica_id) VALUES (?, ?)";
+
+    try (Connection conn = Conexao.getConexao();
+         PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+        stmt.setInt(1, usuarioId);
+        stmt.setInt(2, musicaId);
+        stmt.executeUpdate();
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+}
+    public void descurtirMusica(int idUsuario, int idMusica) {
+    String sql = "DELETE FROM curtidas WHERE id_usuario = ? AND id_musica = ?";
+
+    try (Connection conn = Conexao.conectar();
+         PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+        stmt.setInt(1, idUsuario);
+        stmt.setInt(2, idMusica);
+        stmt.executeUpdate();
+
+    } catch (SQLException e) {
+        System.out.println("Erro ao descurtir música: " + e.getMessage());
+    }
+}
+
+
+    
 }

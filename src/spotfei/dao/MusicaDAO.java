@@ -22,10 +22,11 @@ public class MusicaDAO {
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
+                int id = rs.getInt("id"); 
                 String nome = rs.getString("nome");
                 String genero = rs.getString("genero");
                 String artista = rs.getString("artista");
-                Musica musica = new Musica(nome, genero, artista);
+                Musica musica = new Musica(id, nome, genero, artista); 
                 musicas.add(musica);
             }
 

@@ -5,6 +5,25 @@ import java.util.List;
 
 public class Usuario extends Pessoa implements Autenticacao {
 
+    private int id;
+    private List<PlayList> playlists;
+    private List<Musica> historico;
+    private List<Musica> curtidas;
+    private List<Musica> descurtidas;
+
+    public Usuario(int id, String nome, String email, String senha) {
+        super(nome, email, senha);
+        this.id = id;
+        this.playlists = new ArrayList<>();
+        this.historico = new ArrayList<>();
+        this.curtidas = new ArrayList<>();
+        this.descurtidas = new ArrayList<>();
+    }
+
+    public int getId() {
+        return id;
+    }
+
     public List<PlayList> getPlaylists() {
         return playlists;
     }
@@ -36,27 +55,20 @@ public class Usuario extends Pessoa implements Autenticacao {
     public void setDescurtidas(List<Musica> descurtidas) {
         this.descurtidas = descurtidas;
     }
-    private int id;
-    private List<PlayList> playlists;
-    private List<Musica> historico;
-    private List<Musica> curtidas;
-    private List<Musica> descurtidas;
-
-    public Usuario(int id, String nome, String email, String senha) {
-        super(nome, email, senha);
-        this.id = id;
-        this.playlists = new ArrayList<>();
-        this.historico = new ArrayList<>();
-        this.curtidas = new ArrayList<>();
-        this.descurtidas = new ArrayList<>();
-    }
-
-    public int getId() {
-        return id;
-    }
 
     @Override
     public boolean login(String email, String senha) {
         return this.email.equals(email) && this.senha.equals(senha);
+    }
+    public static class UsuarioLogado {
+        private static Usuario usuarioLogado;
+
+        public static Usuario getUsuarioLogado() {
+            return usuarioLogado;
+        }
+
+        public static void setUsuarioLogado(Usuario usuario) {
+            usuarioLogado = usuario;
+        }
     }
 }
