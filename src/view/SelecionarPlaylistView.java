@@ -12,6 +12,7 @@ import spotfei.model.Musica;
 import spotfei.model.PlayList;
 import spotfei.model.Usuario;
 import spotfei.dao.UsuarioDAO;
+import view.CriarPlaylistView;
 
 import spotfei.model.Musica;
 
@@ -64,7 +65,9 @@ private void carregarPlaylists() {
                 "Playlist"
             }
         ));
+        jTable1.setColumnSelectionAllowed(true);
         jScrollPane1.setViewportView(jTable1);
+        jTable1.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
         jButton1.setText("Adicionar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {

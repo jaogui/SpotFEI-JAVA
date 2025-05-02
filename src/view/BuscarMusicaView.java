@@ -71,7 +71,9 @@ public class BuscarMusicaView extends javax.swing.JFrame {
                 "Nome", "Artista", "Genero"
             }
         ));
+        jTable1.setColumnSelectionAllowed(true);
         jScrollPane1.setViewportView(jTable1);
+        jTable1.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
         jButton2.setText("❤️ Curtir");
         jButton2.addActionListener(new java.awt.event.ActionListener() {

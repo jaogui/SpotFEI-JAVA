@@ -5,6 +5,7 @@ import java.util.List;
 
 public class PlayList {
     private String nome;
+
     private List<Musica> musicas;
 
     public PlayList(String nome) {
@@ -24,6 +25,9 @@ public class PlayList {
         return nome;
     }
 
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
     public List<Musica> getMusicas() {
         return musicas;
     }
