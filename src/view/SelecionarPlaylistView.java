@@ -49,6 +49,7 @@ private void carregarPlaylists() {
         jTable1 = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -83,6 +84,13 @@ private void carregarPlaylists() {
             }
         });
 
+        jButton3.setText("Menu");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -100,6 +108,9 @@ private void carregarPlaylists() {
                             .addComponent(jButton2)
                             .addComponent(jButton1))))
                 .addContainerGap(19, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jButton3))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -112,7 +123,8 @@ private void carregarPlaylists() {
                 .addComponent(jButton1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton2)
-                .addGap(50, 50, 50))
+                .addGap(25, 25, 25)
+                .addComponent(jButton3))
         );
 
         pack();
@@ -134,7 +146,8 @@ private void carregarPlaylists() {
                         dao.atualizarPlayLists(usuarioLogado); 
 
                         JOptionPane.showMessageDialog(this, "Música adicionada à playlist!");
-                        this.dispose(); 
+                            PlaylistsView playlistsView = new PlaylistsView();
+                            playlistsView.setVisible(true);; 
                         return;
                     }
                 }
@@ -153,11 +166,18 @@ private void carregarPlaylists() {
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    Menu menu = new Menu(); 
+    menu.setVisible(true);
+
+    this.dispose();       }//GEN-LAST:event_jButton3ActionPerformed
+
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
