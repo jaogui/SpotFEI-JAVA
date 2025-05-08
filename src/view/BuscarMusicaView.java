@@ -209,13 +209,13 @@ public class BuscarMusicaView extends javax.swing.JFrame {
         }
 
         String nome = (String) jTable1.getValueAt(linhaSelecionada, 0);
-        String artista = (String) jTable1.getValueAt(linhaSelecionada, 1);
+        int artista_id = (int) jTable1.getValueAt(linhaSelecionada, 1);
         String genero = (String) jTable1.getValueAt(linhaSelecionada, 2);
 
         MusicaDAO dao = new MusicaDAO();
         List<Musica> lista = dao.buscarMusicas(nome);
         for (Musica m : lista) {
-            if (m.getNome().equals(nome) && m.getArtista().equals(artista)) {
+            if (m.getNome().equals(nome) && m.getArtista() == artista_id) {
                 return m;
             }
         }

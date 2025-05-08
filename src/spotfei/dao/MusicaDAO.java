@@ -9,7 +9,7 @@ public class MusicaDAO {
 
     public List<Musica> buscarMusicas(String termoBusca) {
         List<Musica> musicas = new ArrayList<>();
-        String sql = "SELECT * FROM musicas WHERE LOWER(nome) LIKE ? OR LOWER(genero) LIKE ? OR LOWER(artista) LIKE ?";
+        String sql = "SELECT * FROM musica WHERE LOWER(nome) LIKE ? OR LOWER(genero) LIKE ? OR artista_id = ?";
 
         try (Connection conn = Conexao.conectar();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -17,16 +17,22 @@ public class MusicaDAO {
             String busca = "%" + termoBusca.toLowerCase() + "%";
             stmt.setString(1, busca);
             stmt.setString(2, busca);
-            stmt.setString(3, busca);
+
+            try {
+                int artistaId = Integer.parseInt(termoBusca);
+                stmt.setInt(3, artistaId);
+            } catch (NumberFormatException e) {
+                stmt.setInt(3, -1); 
+            }
 
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-                int id = rs.getInt("id"); 
+                int id = rs.getInt("id");
                 String nome = rs.getString("nome");
                 String genero = rs.getString("genero");
-                String artista = rs.getString("artista");
-                Musica musica = new Musica(id, nome, genero, artista); 
+                int artista_id = rs.getInt("artista_id");
+                Musica musica = new Musica(id, nome, genero, artista_id);
                 musicas.add(musica);
             }
 

@@ -4,13 +4,16 @@ public class Musica {
     private int id;
     private String nome;
     private String genero;
-    private String artista;
+    private int artista_id;
+    private String nomeArtista;
 
-    public Musica(int id, String nome, String genero, String artista) {
+
+    public Musica(int id, String nome, String genero, int artista_id) {
         this.id = id;
         this.nome = nome;
         this.genero = genero;
-        this.artista = artista;
+        this.artista_id = artista_id;
+
     }
 
     public int getId() {
@@ -25,7 +28,7 @@ public class Musica {
         return genero;
     }
 
-    public String getArtista() {
-        return artista;
+    public int getArtista() {
+        return artista_id;
     }
 }
