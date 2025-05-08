@@ -11,7 +11,7 @@ public class MusicaDAO {
         List<Musica> musicas = new ArrayList<>();
         String sql = "SELECT * FROM musica WHERE LOWER(nome) LIKE ? OR LOWER(genero) LIKE ? OR artista_id = ?";
 
-        try (Connection conn = Conexao.conectar();
+        try (Connection conn = Conexao.getConexao();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             String busca = "%" + termoBusca.toLowerCase() + "%";

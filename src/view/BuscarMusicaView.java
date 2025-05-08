@@ -170,22 +170,23 @@ public class BuscarMusicaView extends javax.swing.JFrame {
     if (m != null) {
         Usuario usuarioLogado = Usuario.UsuarioLogado.getUsuarioLogado();
         if (usuarioLogado != null) {
+            System.out.println("Tentando curtir a música: " + m.getId() + " para o usuário: " + usuarioLogado.getId());
             UsuarioDAO usuarioDAO = new UsuarioDAO();
-            usuarioDAO.curtirMusica(usuarioLogado.getId(), m.getId());  
+            usuarioDAO.curtirMusica(usuarioLogado.getId(), m.getId());
             JOptionPane.showMessageDialog(this, "Música Curtida!");
         } else {
             JOptionPane.showMessageDialog(this, "Erro ao curtir a musica");
         }
-}
+    }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-    Musica m = getMusicaSelecionada();  
+    Musica m = getMusicaSelecionada(); 
     if (m != null) {
-        Usuario usuarioLogado = Usuario.UsuarioLogado.getUsuarioLogado();  
+        Usuario usuarioLogado = Usuario.UsuarioLogado.getUsuarioLogado(); 
         if (usuarioLogado != null) {
             UsuarioDAO usuarioDAO = new UsuarioDAO();
-            usuarioDAO.descurtirMusica(usuarioLogado.getId(), m.getId());  
+            usuarioDAO.descurtirMusica(usuarioLogado.getId(), m.getId()); 
             JOptionPane.showMessageDialog(this, "Música Descurtida!");
         } else {
             JOptionPane.showMessageDialog(this, "Erro ao descurtir a música");

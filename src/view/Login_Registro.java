@@ -156,10 +156,13 @@ public class Login_Registro extends javax.swing.JFrame {
 
     Usuario usuario = usuarioController.login(email, senha);
 
-if (usuario != null) {
-    JOptionPane.showMessageDialog(this, "Login bem-sucedido! Bem-vindo(a), " + usuario.getNome());
-    new Menu().setVisible(true); 
-    this.dispose(); 
+    if (usuario != null) {
+        Usuario.UsuarioLogado.setUsuarioLogado(usuario);
+
+        JOptionPane.showMessageDialog(this, "Login bem-sucedido! Bem-vindo(a), " + usuario.getNome());
+        new Menu().setVisible(true); 
+        this.dispose(); 
+    } else {
         JOptionPane.showMessageDialog(this, "Email ou senha incorretos.");
     }
     }//GEN-LAST:event_jButton2ActionPerformed

@@ -7,7 +7,7 @@ import javax.swing.JOptionPane;
 import spotfei.model.PlayList;
 import spotfei.model.Usuario;
 import spotfei.dao.UsuarioDAO;
-
+import java.sql.SQLException;
 /**
  *
  * @author joaog
@@ -87,6 +87,7 @@ public class CriarPlaylistView extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+                                      
     String nomePlaylist = jTextField1.getText().trim();
 
     if (nomePlaylist.isEmpty()) {
@@ -94,20 +95,26 @@ public class CriarPlaylistView extends javax.swing.JFrame {
         return;
     }
     
-    
     Usuario usuarioLogado = Usuario.UsuarioLogado.getUsuarioLogado();
-    if(usuarioLogado != null){ 
+    
+    if (usuarioLogado != null) {
         PlayList nova = new PlayList(nomePlaylist);
-        usuarioLogado.getPlaylists().add(nova);
-    }
+        
+        UsuarioDAO dao = new UsuarioDAO();
+        try {
+            dao.criarPlaylist(nomePlaylist, usuarioLogado.getId());
+            usuarioLogado.getPlaylists().add(nova); 
+            JOptionPane.showMessageDialog(this, "Playlist criada com sucesso!");
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Erro ao criar playlist: " + e.getMessage());
+            return; 
+        }
+        dao.atualizarPlayLists(usuarioLogado);
+        
+    PlaylistsView playlistsView = new PlaylistsView();
+    playlistsView.setVisible(true);
+}
 
-    UsuarioDAO dao = new UsuarioDAO();
-    dao.atualizarPlayLists(usuarioLogado);
-
-    JOptionPane.showMessageDialog(this, "Playlist criada com sucesso!");
-
-    SelecionarPlaylistView selecionar = new SelecionarPlaylistView(null);
-    selecionar.setVisible(true);
 
     this.dispose();    }//GEN-LAST:event_jButton1ActionPerformed
 

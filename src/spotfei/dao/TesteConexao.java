@@ -5,7 +5,7 @@ import java.sql.Connection;
 public class TesteConexao {
     public static void main(String[] args) {
         try {
-            Connection conn = Conexao.conectar();
+            Connection conn = Conexao.getConexao();
             System.out.println("✅ Conexão bem-sucedida!");
             conn.close();
         } catch (Exception e) {

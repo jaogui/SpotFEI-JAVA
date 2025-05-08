@@ -9,6 +9,7 @@ import java.util.List;
 import spotfei.model.Usuario;
 import spotfei.model.PlayList;
 import spotfei.model.Musica;
+import java.sql.Statement;
 
 public class UsuarioDAO {
 
@@ -77,8 +78,25 @@ public class UsuarioDAO {
             e.printStackTrace();
         }
     }
-    public void curtirMusica(int usuarioId, int musicaId) {
-    String sql = "INSERT INTO musica_curtida (usuario_id, musica_id) VALUES (?, ?)";
+public void curtirMusica(int usuarioId, int musicaId) {
+    String sql = "INSERT INTO curtidas (id_usuario, id_musica) VALUES (?, ?)"; 
+    try (Connection conn = Conexao.getConexao();
+         PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+        stmt.setInt(1, usuarioId);
+        stmt.setInt(2, musicaId);
+        stmt.executeUpdate();
+        System.out.println("Música curtida com sucesso!");
+
+    } catch (SQLException e) {
+        System.out.println("Erro ao curtir música: " + e.getMessage());
+    }
+}
+
+
+
+public void descurtirMusica(int usuarioId, int musicaId) {
+    String sql = "DELETE FROM curtidas WHERE id_usuario = ? AND id_musica = ?"; 
 
     try (Connection conn = Conexao.getConexao();
          PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -86,23 +104,35 @@ public class UsuarioDAO {
         stmt.setInt(1, usuarioId);
         stmt.setInt(2, musicaId);
         stmt.executeUpdate();
-
-    } catch (SQLException e) {
-        e.printStackTrace();
-    }
-}
-    public void descurtirMusica(int idUsuario, int idMusica) {
-    String sql = "DELETE FROM curtidas WHERE id_usuario = ? AND id_musica = ?";
-
-    try (Connection conn = Conexao.conectar();
-         PreparedStatement stmt = conn.prepareStatement(sql)) {
-
-        stmt.setInt(1, idUsuario);
-        stmt.setInt(2, idMusica);
-        stmt.executeUpdate();
+        System.out.println("Música descurtida com sucesso!");
 
     } catch (SQLException e) {
         System.out.println("Erro ao descurtir música: " + e.getMessage());
+    }
+}
+
+public void criarPlaylist(String nome, int usuarioId) throws SQLException {
+    String sqlInsert = "INSERT INTO playlist (nome, usuario_id) VALUES (?, ?)";
+    try (Connection conn = Conexao.getConexao();
+         PreparedStatement stmt = conn.prepareStatement(sqlInsert, Statement.RETURN_GENERATED_KEYS)) {
+        stmt.setString(1, nome);
+        stmt.setInt(2, usuarioId);
+
+        int affectedRows = stmt.executeUpdate();
+        if (affectedRows == 0) {
+            throw new SQLException("Criar Playlis falhou, nenhuma linha foi afetada.");
+        }
+        try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
+            if (generatedKeys.next()) {
+                int playlistId = generatedKeys.getInt(1);
+                System.out.println("Playlist criada com ID: " + playlistId);
+            } else {
+                throw new SQLException("Criar Playlis falhou, nenhum ID foi gerado.");
+            }
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+        throw e; 
     }
 }
 public void atualizarPlayLists(Usuario usuario) {
@@ -112,12 +142,12 @@ public void atualizarPlayLists(Usuario usuario) {
 
         try {
             conn = Conexao.getConexao();
-            String sqlDelete = "DELETE FROM playlist_musica WHERE playlist_id IN (SELECT id FROM playlist WHERE usuario_id = ?)";
+            String sqlDelete = "DELETE FROM musica_playlist WHERE playlist_id IN (SELECT id FROM playlist WHERE usuario_id = ?)";
             stmtDelete = conn.prepareStatement(sqlDelete);
             stmtDelete.setInt(1, usuario.getId());
             stmtDelete.executeUpdate();
 
-            String sqlInsert = "INSERT INTO playlist_musica (playlist_id, musica_id) VALUES (?, ?)";
+            String sqlInsert = "INSERT INTO musica_playlist (playlist_id, musica_id) VALUES (?, ?)";
             stmtInsert = conn.prepareStatement(sqlInsert);
 
             for (PlayList p : usuario.getPlaylists()) {

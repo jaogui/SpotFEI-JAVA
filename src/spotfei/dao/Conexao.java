@@ -9,9 +9,6 @@ public class Conexao {
     private static final String USUARIO = "postgres";
     private static final String SENHA = "fei";
 
-    public static Connection conectar() throws SQLException {
-        return DriverManager.getConnection(URL, USUARIO, SENHA);
-    }
     public static Connection getConexao() throws SQLException {
         try {
             return DriverManager.getConnection(URL, USUARIO, SENHA);
