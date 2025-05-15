@@ -16,15 +16,20 @@ public class HistoricoView extends javax.swing.JFrame {
     
 public void carregarHistorico() {
     Usuario usuario = Usuario.UsuarioLogado.getUsuarioLogado();
-    if (usuario != null) {
-        List<String> musicasHistorico = new UsuarioDAO().buscarUltimas10MusicasBuscadas(usuario.getId());
-        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-        model.setRowCount(0);
-        for (String nomeMusica : musicasHistorico) {
-            model.addRow(new Object[]{nomeMusica});
-        }
+    if (usuario == null) {
+        System.out.println("Nenhum usuário logado.");
+        return;
+    }
+    UsuarioDAO usuarioDAO = new UsuarioDAO();
+    List<String> musicasHistorico = usuarioDAO.obterUltimas10Buscas(usuario.getId());
+
+    DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+    model.setRowCount(0); 
+    for (String nomeMusica : musicasHistorico) {
+        model.addRow(new Object[]{nomeMusica});
     }
 }
+
 
 public void carregarCurtidas() {
     Usuario usuario = Usuario.UsuarioLogado.getUsuarioLogado();

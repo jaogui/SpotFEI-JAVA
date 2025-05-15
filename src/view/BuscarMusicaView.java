@@ -52,7 +52,7 @@ public class BuscarMusicaView extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setText("Musica");
+        jLabel1.setText("Musica / Genero");
 
         jButton1.setText("Buscar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -163,22 +163,24 @@ public class BuscarMusicaView extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        String termoBusca = jTextField1.getText().toLowerCase();
-        
-        MusicaDAO musicaDAO = new MusicaDAO();
-        List<Musica> musicasEncontradas = musicaDAO.buscarMusicas(termoBusca);
-        
-        DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
-        modelo.setRowCount(0);
-        
-        for (Musica m: musicasEncontradas){
-            modelo.addRow(new Object[]{ 
+    String termoBusca = jTextField1.getText().toLowerCase();
+    Usuario usuario = Usuario.UsuarioLogado.getUsuarioLogado();
+    if (usuario != null && !termoBusca.isEmpty()) {
+        UsuarioDAO usuarioDAO = new UsuarioDAO();
+        usuarioDAO.registrarBusca(usuario.getId(), termoBusca);
+    }
+    MusicaDAO musicaDAO = new MusicaDAO();
+    List<Musica> musicasEncontradas = musicaDAO.buscarMusicas(termoBusca);
+    DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
+    modelo.setRowCount(0);
+    for (Musica m : musicasEncontradas) {
+        modelo.addRow(new Object[]{
             m.getNome(),
             m.getArtista(),
             m.getGenero(),
         });
-        }
-        
+    }
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed

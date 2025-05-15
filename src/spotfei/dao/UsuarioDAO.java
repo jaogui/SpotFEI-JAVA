@@ -86,16 +86,30 @@ public class UsuarioDAO {
             e.printStackTrace();
         }
     }
-public void curtirMusica(int usuarioId, int musicaId) {
-    String sql = "INSERT INTO curtidas (id_usuario, id_musica) VALUES (?, ?)"; 
-    try (Connection conn = Conexao.getConexao();
-         PreparedStatement stmt = conn.prepareStatement(sql)) {
-        stmt.setInt(1, usuarioId);
-        stmt.setInt(2, musicaId);
-        stmt.executeUpdate();
-        System.out.println("Música curtida com sucesso!");
+public void curtirMusica(int usuarioId, int musicaId) {   
+    String deleteSql = "DELETE FROM descurtidas WHERE id_usuario = ? AND id_musica = ?";
+    String insertSql = "INSERT INTO curtidas (id_usuario, id_musica) VALUES (?, ?)";
+    try (Connection conn = Conexao.getConexao()) {
+        conn.setAutoCommit(false);
+        try (PreparedStatement deleteStmt = conn.prepareStatement(deleteSql);
+             PreparedStatement insertStmt = conn.prepareStatement(insertSql)) {
+            deleteStmt.setInt(1, usuarioId);
+            deleteStmt.setInt(2, musicaId);
+            deleteStmt.executeUpdate();
+            insertStmt.setInt(1, usuarioId);
+            insertStmt.setInt(2, musicaId);
+            insertStmt.executeUpdate();
+
+            conn.commit();
+            System.out.println("Música curtida com sucesso!");
+        } catch (SQLException e) {
+            conn.rollback();
+            System.out.println("Erro ao curtir música: " + e.getMessage());
+        } finally {
+            conn.setAutoCommit(true);
+        }
     } catch (SQLException e) {
-        System.out.println("Erro ao curtir música: " + e.getMessage());
+        System.out.println("Erro na conexão: " + e.getMessage());
     }
 }
 
@@ -199,25 +213,37 @@ public void atualizarPlayLists(Usuario usuario) {
         throw new SQLException("Playlist não encontrada: " + nome);
     }
 
-    public List<String> buscarUltimas10MusicasBuscadas(int idUsuario) {
-        List<String> nomesMusicas = new ArrayList<>();
-        String sql = "SELECT m.nome FROM historico_buscas hb " +
-                     "JOIN musica m ON hb.id_musica = m.id " +
-                     "WHERE hb.id_usuario = ? " +
-                     "ORDER BY hb.data_busca DESC LIMIT 10";
+    public void registrarBusca(int idUsuario, String termo) {
+        String sql = "INSERT INTO historico_buscas (id_usuario, texto_busca) VALUES (?, ?)";
         try (Connection conn = Conexao.getConexao();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, idUsuario);
-            try (ResultSet rs = stmt.executeQuery()) {
-                while (rs.next()) {
-                    nomesMusicas.add(rs.getString("nome"));
-                }
+            stmt.setString(2, termo);
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public List<String> obterUltimas10Buscas(int idUsuario) {
+        List<String> historico = new ArrayList<>();
+        String sql = "SELECT texto_busca FROM historico_buscas WHERE id_usuario = ? ORDER BY id DESC LIMIT 10";
+
+        try (Connection conn = Conexao.getConexao();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, idUsuario);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                historico.add(rs.getString("texto_busca"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return nomesMusicas;
+
+        return historico;
     }
+
     
      public List<String> buscarMusicasCurtidas(int idUsuario) {
         List<String> nomesMusicas = new ArrayList<>();
