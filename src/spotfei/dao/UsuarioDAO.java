@@ -17,6 +17,7 @@ import spotfei.model.Usuario;
 import spotfei.model.PlayList;
 import spotfei.model.Musica;
 import java.sql.Statement;
+import javax.swing.table.DefaultTableModel;
 
 public class UsuarioDAO {
 
@@ -89,12 +90,10 @@ public void curtirMusica(int usuarioId, int musicaId) {
     String sql = "INSERT INTO curtidas (id_usuario, id_musica) VALUES (?, ?)"; 
     try (Connection conn = Conexao.getConexao();
          PreparedStatement stmt = conn.prepareStatement(sql)) {
-
         stmt.setInt(1, usuarioId);
         stmt.setInt(2, musicaId);
         stmt.executeUpdate();
         System.out.println("Música curtida com sucesso!");
-
     } catch (SQLException e) {
         System.out.println("Erro ao curtir música: " + e.getMessage());
     }
@@ -104,15 +103,12 @@ public void curtirMusica(int usuarioId, int musicaId) {
 
 public void descurtirMusica(int usuarioId, int musicaId) {
     String sql = "DELETE FROM curtidas WHERE id_usuario = ? AND id_musica = ?"; 
-
     try (Connection conn = Conexao.getConexao();
          PreparedStatement stmt = conn.prepareStatement(sql)) {
-
         stmt.setInt(1, usuarioId);
         stmt.setInt(2, musicaId);
         stmt.executeUpdate();
         System.out.println("Música descurtida com sucesso!");
-
     } catch (SQLException e) {
         System.out.println("Erro ao descurtir música: " + e.getMessage());
     }
@@ -192,5 +188,61 @@ public void atualizarPlayLists(Usuario usuario) {
         throw new SQLException("Playlist não encontrada: " + nome);
     }
 
+    public List<String> buscarUltimas10MusicasBuscadas(int idUsuario) {
+        List<String> nomesMusicas = new ArrayList<>();
+        String sql = "SELECT m.nome FROM historico_buscas hb " +
+                     "JOIN musica m ON hb.id_musica = m.id " +
+                     "WHERE hb.id_usuario = ? " +
+                     "ORDER BY hb.data_busca DESC LIMIT 10";
+        try (Connection conn = Conexao.getConexao();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, idUsuario);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    nomesMusicas.add(rs.getString("nome"));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return nomesMusicas;
+    }
     
+     public List<String> buscarMusicasCurtidas(int idUsuario) {
+        List<String> nomesMusicas = new ArrayList<>();
+        String sql = "SELECT m.nome FROM curtidas c " +
+                     "JOIN musica m ON c.id_musica = m.id " +
+                     "WHERE c.id_usuario = ?";
+        try (Connection conn = Conexao.getConexao();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, idUsuario);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    nomesMusicas.add(rs.getString("nome"));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return nomesMusicas;
+    }
+     
+     public List<String> buscarMusicasDescurtidas(int idUsuario) {
+        List<String> nomesMusicas = new ArrayList<>();
+        String sql = "SELECT m.nome FROM descurtidas d " +
+                     "JOIN musica m ON d.id_musica = m.id " +
+                     "WHERE d.id_usuario = ?";
+        try (Connection conn = Conexao.getConexao();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, idUsuario);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    nomesMusicas.add(rs.getString("nome"));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return nomesMusicas;
+    }
 }

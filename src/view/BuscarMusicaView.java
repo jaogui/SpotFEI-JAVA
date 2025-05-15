@@ -201,6 +201,7 @@ public class BuscarMusicaView extends javax.swing.JFrame {
     if (m != null) {
         Usuario usuarioLogado = Usuario.UsuarioLogado.getUsuarioLogado(); 
         if (usuarioLogado != null) {
+            System.out.println("Tentando descurtir a música: " + m.getId() + " para o usuário: " + usuarioLogado.getId());
             UsuarioDAO usuarioDAO = new UsuarioDAO();
             usuarioDAO.descurtirMusica(usuarioLogado.getId(), m.getId()); 
             JOptionPane.showMessageDialog(this, "Música Descurtida!");
