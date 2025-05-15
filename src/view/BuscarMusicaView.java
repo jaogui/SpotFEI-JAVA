@@ -17,12 +17,29 @@ import spotfei.model.Usuario;
  * @author joaog
  */
 public class BuscarMusicaView extends javax.swing.JFrame {
+    private void carregarTodasMusicas() {
+    MusicaDAO musicaDAO = new MusicaDAO();
+    List<Musica> todasMusicas = musicaDAO.buscarMusicas(""); 
+
+    DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
+    modelo.setRowCount(0); 
+
+    for (Musica m : todasMusicas) {
+        modelo.addRow(new Object[]{
+            m.getNome(),
+            m.getArtista(),
+            m.getGenero()
+        });
+    }
+}
+
 
     /**
      * Creates new form BuscarMusicaView
      */
     public BuscarMusicaView() {
         initComponents();
+        carregarTodasMusicas();
     }
 
     /**
