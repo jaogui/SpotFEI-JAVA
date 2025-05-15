@@ -12,6 +12,13 @@ import java.sql.SQLException;
  *
  * @author joaog
  */
+/**
+ * Tela responsável por permitir ao usuário criar uma nova playlist.
+ * O nome da playlist é informado por um campo de texto, e ao clicar no botão,
+ * ela é salva no banco de dados e associada ao usuário logado.
+ * 
+ * Essa classe depende da existência de um usuário logado através de Usuario.UsuarioLogado.
+ */
 public class CriarPlaylistView extends javax.swing.JFrame {
 
     /**

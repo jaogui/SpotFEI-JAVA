@@ -1,12 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+/**
+ * Classe responsável pelo acesso e manipulação dos dados da tabela Musica no banco.
+ * Possui métodos para buscar músicas conforme um termo de busca.
  */
 package spotfei.dao;
-/**
- *
- * @author unifjfaber
- */
+
 import spotfei.model.Musica;
 import java.sql.*;
 import java.util.ArrayList;
@@ -14,6 +11,13 @@ import java.util.List;
 
 public class MusicaDAO {
 
+    /**
+     * Busca músicas que tenham o nome ou gênero parecidos com o termo informado,
+     * ou que tenham o artista com o ID igual ao termo (caso seja número).
+     *
+     * @param termoBusca texto para buscar músicas (nome, gênero ou id do artista)
+     * @return lista de músicas que correspondem ao critério de busca
+     */
     public List<Musica> buscarMusicas(String termoBusca) {
         List<Musica> musicas = new ArrayList<>();
         String sql = "SELECT * FROM musica WHERE LOWER(nome) LIKE ? OR LOWER(genero) LIKE ? OR artista_id = ?";
@@ -29,7 +33,7 @@ public class MusicaDAO {
                 int artistaId = Integer.parseInt(termoBusca);
                 stmt.setInt(3, artistaId);
             } catch (NumberFormatException e) {
-                stmt.setInt(3, -1); 
+                stmt.setInt(3, -1); // Nenhum artista terá ID -1, evita erros na consulta
             }
 
             ResultSet rs = stmt.executeQuery();
