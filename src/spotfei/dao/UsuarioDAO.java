@@ -102,17 +102,28 @@ public void curtirMusica(int usuarioId, int musicaId) {
 
 
 public void descurtirMusica(int usuarioId, int musicaId) {
-    String sql = "DELETE FROM curtidas WHERE id_usuario = ? AND id_musica = ?"; 
-    try (Connection conn = Conexao.getConexao();
-         PreparedStatement stmt = conn.prepareStatement(sql)) {
-        stmt.setInt(1, usuarioId);
-        stmt.setInt(2, musicaId);
-        stmt.executeUpdate();
-        System.out.println("Música descurtida com sucesso!");
+    String deleteSql = "DELETE FROM curtidas WHERE id_usuario = ? AND id_musica = ?";
+    String insertSql = "INSERT INTO descurtidas (id_usuario, id_musica) VALUES (?, ?)";
+
+    try (Connection conn = Conexao.getConexao()) {
+        try (PreparedStatement deleteStmt = conn.prepareStatement(deleteSql);
+             PreparedStatement insertStmt = conn.prepareStatement(insertSql)) {
+
+            deleteStmt.setInt(1, usuarioId);
+            deleteStmt.setInt(2, musicaId);
+            deleteStmt.executeUpdate();
+
+            insertStmt.setInt(1, usuarioId);
+            insertStmt.setInt(2, musicaId);
+            insertStmt.executeUpdate();
+
+            System.out.println("Música descurtida com sucesso!");
+        }
     } catch (SQLException e) {
         System.out.println("Erro ao descurtir música: " + e.getMessage());
     }
 }
+
 
 public void criarPlaylist(String nome, int usuarioId) throws SQLException {
     String sqlInsert = "INSERT INTO playlist (nome, usuario_id) VALUES (?, ?)";
