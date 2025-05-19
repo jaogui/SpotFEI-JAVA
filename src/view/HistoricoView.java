@@ -8,12 +8,26 @@ import javax.swing.table.DefaultTableModel;
 import java.util.List;
 import spotfei.model.Usuario; 
 /**
- *
+ * Classe responsável por exibir a interface gráfica com três abas:
+ * Histórico de músicas buscadas, músicas curtidas e músicas descurtidas.
+ * Cada aba contém uma tabela com os dados respectivos e um botão para retornar ao menu principal.
+ * 
+ * A classe utiliza o padrão Swing para criar a interface, e se comunica com a camada DAO
+ * para recuperar os dados do usuário logado.
+ * 
+ * Requer a classe {@link spotfei.dao.UsuarioDAO} e o modelo {@link spotfei.model.Usuario}.
+ * 
  * @author joaog
  */
+
+
 public class HistoricoView extends javax.swing.JFrame {
     private UsuarioDAO usuarioDAO = new UsuarioDAO();
-    
+
+    /**
+     * Carrega as últimas 10 buscas realizadas pelo usuário logado.
+     * Os dados são exibidos na tabela da aba "Histórico".
+     */    
 public void carregarHistorico() {
     Usuario usuario = Usuario.UsuarioLogado.getUsuarioLogado();
     if (usuario == null) {
@@ -30,7 +44,10 @@ public void carregarHistorico() {
     }
 }
 
-
+    /**
+     * Carrega as músicas curtidas pelo usuário logado.
+     * Os dados são exibidos na tabela da aba "Curtidas".
+     */
 public void carregarCurtidas() {
     Usuario usuario = Usuario.UsuarioLogado.getUsuarioLogado();
     if (usuario != null) {
@@ -43,6 +60,10 @@ public void carregarCurtidas() {
     }
 }
 
+    /**
+     * Carrega as músicas descurtidas pelo usuário logado.
+     * Os dados são exibidos na tabela da aba "Descurtidas".
+     */
 public void carregarDescurtidas() {
     Usuario usuario = Usuario.UsuarioLogado.getUsuarioLogado();
     if (usuario != null) {
@@ -57,7 +78,8 @@ public void carregarDescurtidas() {
 
 
     /**
-     * Creates new form HistoricoView
+     * Construtor da interface gráfica HistoricoView.
+     * Inicializa os componentes da tela e carrega os dados das abas.
      */
     public HistoricoView() {
         initComponents();

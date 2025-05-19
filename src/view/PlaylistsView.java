@@ -11,11 +11,17 @@ import spotfei.dao.UsuarioDAO;
 import java.util.List;
 import view.EditarPlaylistView;
 /**
- *
+ * Tela de gerenciamento das playlists do usuário logado.
+ * Permite visualizar, editar, excluir e criar playlists.
+ * Também oferece retorno ao menu principal.
+ * 
  * @author joaog
  */
 public class PlaylistsView extends javax.swing.JFrame {
 
+    /**
+     * Carrega as playlists do usuário logado e exibe na tabela.
+     */
 private void carregarPlaylists() {
         Usuario usuarioLogado = Usuario.UsuarioLogado.getUsuarioLogado();
         if (usuarioLogado != null) {
@@ -26,7 +32,10 @@ private void carregarPlaylists() {
             }
         }
     }
-
+    /**
+     * Construtor da classe PlaylistsView.
+     * Inicializa os componentes e carrega as playlists do usuário logado.
+     */
 public PlaylistsView() {
     initComponents();
     carregarPlaylists(); 
@@ -141,7 +150,10 @@ public PlaylistsView() {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+     * Abre a tela de edição da playlist selecionada.
+     * @param evt Evento de clique no botão "Editar"
+     */
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
     int linhaSelecionada = jTable2.getSelectedRow();
 
@@ -163,7 +175,10 @@ public PlaylistsView() {
         JOptionPane.showMessageDialog(this, "Selecione uma playlist para editar.");
     }
     }//GEN-LAST:event_jButton1ActionPerformed
-
+    /**
+     * Exclui a playlist selecionada após confirmação do usuário.
+     * @param evt Evento de clique no botão "Excluir"
+     */
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
 int linhaSelecionada = jTable2.getSelectedRow();
 
@@ -193,12 +208,18 @@ int linhaSelecionada = jTable2.getSelectedRow();
     } else {
         JOptionPane.showMessageDialog(this, "Selecione uma playlist para apagar.");
     }    }//GEN-LAST:event_jButton2ActionPerformed
-
+    /**
+     * Abre a tela de criação de nova playlist.
+     * @param evt Evento de clique no botão "Criar Playlist"
+     */
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         CriarPlaylistView criar = new CriarPlaylistView();
         criar.setVisible(true);
         this.dispose();    }//GEN-LAST:event_jButton3ActionPerformed
-
+    /**
+     * Retorna ao menu principal.
+     * @param evt Evento de clique no botão "Menu"
+     */
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
     Menu menu = new Menu(); 
     menu.setVisible(true);

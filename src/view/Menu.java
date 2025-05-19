@@ -5,13 +5,16 @@
 package view;
 
 /**
- *
+ * Tela principal de menu após o login.
+ * Permite navegar entre buscar músicas, visualizar playlists, histórico e logout.
+ * 
  * @author joaog
  */
 public class Menu extends javax.swing.JFrame {
 
     /**
-     * Creates new form Menu
+     * Construtor da classe Menu.
+     * Inicializa os componentes da interface.
      */
     public Menu() {
         initComponents();
@@ -90,24 +93,36 @@ public class Menu extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+     * Abre a tela de busca de músicas.
+     * @param evt Evento de clique no botão "Buscar Música"
+     */
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
     BuscarMusicaView buscarView = new BuscarMusicaView();
     buscarView.setVisible(true);
     this.dispose(); 
     }//GEN-LAST:event_jButton1ActionPerformed
-
+    /**
+     * Abre a tela das playlists do usuário.
+     * @param evt Evento de clique no botão "Minhas Playlists"
+     */
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
     PlaylistsView playlistsView = new PlaylistsView();
     playlistsView.setVisible(true);
     this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
-
+    /**
+     * Abre o histórico de músicas reproduzidas.
+     * @param evt Evento de clique no botão "Histórico"
+     */
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
     HistoricoView historicoView = new HistoricoView();
     historicoView.setVisible(true);
     this.dispose();    }//GEN-LAST:event_jButton3ActionPerformed
-
+    /**
+     * Faz logout do sistema e volta à tela de login/registro.
+     * @param evt Evento de clique no botão "Logout"
+     */
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
     Login_Registro login = new Login_Registro();
     login.setVisible(true);

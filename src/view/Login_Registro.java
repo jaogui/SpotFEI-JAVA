@@ -8,12 +8,22 @@ import spotfei.model.Usuario;
 import javax.swing.JOptionPane;
 
 /**
- *
+ * Tela de interface gráfica responsável pelo login e registro de usuários no sistema SPOTFEI.
+ * Permite ao usuário registrar-se com nome, email e senha ou realizar login com email e senha.
+ * A interface interage com o {@link Controller.UsuarioController} para autenticação e cadastro.
+ * 
+ * Após um login bem-sucedido, o usuário é redirecionado para a tela de menu principal.
+ * 
+ * Requer a classe {@link spotfei.model.Usuario} para representar o usuário logado.
+ * 
+ * 
  * @author unifjfaber
  */
 public class Login_Registro extends javax.swing.JFrame {
     UsuarioController usuarioController = new UsuarioController();
-
+    /**
+     * Construtor da classe. Inicializa os componentes da interface.
+     */
     public Login_Registro() {
         initComponents();
     }
@@ -135,7 +145,13 @@ public class Login_Registro extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+ /**
+     * Ação realizada ao clicar no botão "Registrar-se".
+     * Coleta os dados do formulário (nome, email, senha) e realiza o cadastro do usuário.
+     * Exibe uma mensagem indicando sucesso ou falha no cadastro.
+     * 
+     * @param evt Evento de clique no botão.
+     */
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         String nome = jTextField1.getText();
     String email = jTextField2.getText();
@@ -149,7 +165,14 @@ public class Login_Registro extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this, "Erro ao cadastrar. Tente outro email.");
     }
     }//GEN-LAST:event_jButton1ActionPerformed
-
+    /**
+     * Ação realizada ao clicar no botão "Login".
+     * Coleta os dados do formulário (email e senha) e realiza a tentativa de autenticação.
+     * Em caso de sucesso, o usuário é salvo como logado e redirecionado ao menu.
+     * Caso contrário, uma mensagem de erro é exibida.
+     * 
+     * @param evt Evento de clique no botão.
+     */
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
     String email = jTextField2.getText();
     String senha = new String(jPasswordField1.getPassword());

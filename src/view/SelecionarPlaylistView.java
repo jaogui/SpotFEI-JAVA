@@ -16,14 +16,29 @@ import view.CriarPlaylistView;
 
 import spotfei.model.Musica;
 
+/**
+ * Janela para selecionar uma playlist e adicionar uma música a ela.
+ * Exibe as playlists do usuário logado e permite adicionar a música selecionada,
+ * criar uma nova playlist ou retornar ao menu principal.
+ * 
+ * @author joaog
+ */
 public class SelecionarPlaylistView extends javax.swing.JFrame {
     private Musica musicaSelecionada;
-
+    /**
+     * Construtor da tela de seleção de playlist.
+     * Inicializa os componentes e carrega as playlists do usuário logado.
+     * 
+     * @param musicaSelecionada música que será adicionada à playlist selecionada
+     */
     public SelecionarPlaylistView(Musica musicaSelecionada) {
         initComponents();
         this.musicaSelecionada = musicaSelecionada;
         carregarPlaylists(); 
     }
+     /**
+     * Carrega as playlists do usuário logado e popula a tabela na interface.
+     */
 private void carregarPlaylists() {
         Usuario usuarioLogado = Usuario.UsuarioLogado.getUsuarioLogado();
         if (usuarioLogado != null) {
@@ -129,7 +144,14 @@ private void carregarPlaylists() {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+     * Ação disparada ao clicar no botão "Adicionar".
+     * Adiciona a música selecionada à playlist escolhida na tabela.
+     * Se nenhuma playlist for selecionada, mostra uma mensagem de erro.
+     * Atualiza a lista de playlists no banco via DAO e navega para a tela de playlists.
+     * 
+     * @param evt evento de ação do botão
+     */
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
     int linhaSelecionada = jTable1.getSelectedRow(); 
 
@@ -159,13 +181,23 @@ private void carregarPlaylists() {
 
 
     }//GEN-LAST:event_jButton1ActionPerformed
-
+    /**
+     * Ação disparada ao clicar no botão "Criar nova Playlist".
+     * Abre a tela para criação de nova playlist e fecha a tela atual.
+     * 
+     * @param evt evento de ação do botão
+     */
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         CriarPlaylistView criar = new CriarPlaylistView();
         criar.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
-
+    /**
+     * Ação disparada ao clicar no botão "Menu".
+     * Abre a tela do menu principal e fecha a tela atual.
+     * 
+     * @param evt evento de ação do botão
+     */
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
     Menu menu = new Menu(); 
     menu.setVisible(true);

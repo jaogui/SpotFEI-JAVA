@@ -13,16 +13,28 @@ import spotfei.model.Usuario;
  *
  * @author joaog
  */
+/**
+ * Tela responsável por permitir a edição de uma playlist existente.
+ * Usuário pode alterar o nome da playlist, remover músicas ou adicionar novas.
+ */
 public class EditarPlaylistView extends javax.swing.JFrame {
 
-private PlayList playlist; // A playlist que será editada
+ private PlayList playlist; // A playlist que será editada
 
+    /**
+     * Construtor usado ao abrir a tela com uma playlist já existente.
+     * @param playlist Objeto da playlist que será editada
+     */
     public EditarPlaylistView(PlayList playlist) {
         initComponents();
         this.playlist = playlist;
         carregarMusicas(); // Carregar as músicas da playlist
         jTextField1.setText(playlist.getNome()); // Preencher o JTextField com o nome da playlist
     }
+
+    /**
+     * Construtor padrão utilizado principalmente pelo editor visual ou em testes.
+     */
 
     // Método para carregar as músicas na tabela
     private void carregarMusicas() {
@@ -34,6 +46,10 @@ private PlayList playlist; // A playlist que será editada
         }
     }
     public EditarPlaylistView() {
+         /**
+     * Carrega todas as músicas da playlist atual e exibe na tabela.
+     * Limpa os dados anteriores antes de adicionar os novos.
+     */
         initComponents();
     }
 
@@ -184,7 +200,11 @@ private PlayList playlist; // A playlist que será editada
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+     * Ação do botão "Salvar". Atualiza o nome da playlist com o valor digitado.
+     * Também persiste a alteração para o usuário logado.
+     * @param evt Evento de clique do botão
+     */
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
     String novoNome = jTextField1.getText().trim();
     
@@ -204,7 +224,11 @@ private PlayList playlist; // A playlist que será editada
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
-
+    /**
+     * Ação do botão "Remover Música". Remove a música selecionada da playlist
+     * e atualiza a tabela e o armazenamento do usuário.
+     * @param evt Evento de clique do botão
+     */
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
     int linhaSelecionada = jTable1.getSelectedRow();
 
@@ -233,19 +257,31 @@ private PlayList playlist; // A playlist que será editada
     } else {
         JOptionPane.showMessageDialog(this, "Selecione uma música para remover.");
     }    }//GEN-LAST:event_jButton2ActionPerformed
-
+    /**
+     * Fecha a tela atual e retorna para a visualização geral das playlists.
+     * @param evt Evento de clique do botão
+     */
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
     this.dispose(); 
     new PlaylistsView().setVisible(true);     }//GEN-LAST:event_jButton3ActionPerformed
-
+    /**
+     * Fecha a tela atual e abre a tela de busca de músicas para adicionar na playlist.
+     * @param evt Evento de clique do botão
+     */
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
     this.dispose(); 
     new BuscarMusicaView().setVisible(true);    }//GEN-LAST:event_jButton4ActionPerformed
-
+    /**
+     * Fecha a tela atual e abre a tela de criação de nova playlist.
+     * @param evt Evento de clique do botão
+     */
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
     this.dispose(); 
     new CriarPlaylistView().setVisible(true);    }//GEN-LAST:event_jButton5ActionPerformed
-
+    /**
+     * Fecha a tela atual e retorna para o menu principal do sistema.
+     * @param evt Evento de clique do botão
+     */
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
     Menu menu = new Menu(); 
     menu.setVisible(true);
