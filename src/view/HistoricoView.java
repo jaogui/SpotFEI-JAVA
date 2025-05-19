@@ -214,11 +214,6 @@ public void carregarDescurtidas() {
     Menu menu = new Menu(); 
     menu.setVisible(true);    }//GEN-LAST:event_jButton3ActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
