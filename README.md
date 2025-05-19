@@ -4,8 +4,10 @@
 
 <h1 align="center">Spotifei</h1>
 
-[Relatório Técnico - 5 páginas](/docs/Relatorio_Spotifei.pdf)
+<p align="center">
+  [Relatório Técnico - 5 páginas](/docs/Relatorio_Spotifei.pdf)
 [Video](/docs/video.pdf)
+</p>
 
 <p align="center">
   Um projeto Java que permite explorar e interagir com informações sobre suas músicas, inspirado na lógica do Spotify.
