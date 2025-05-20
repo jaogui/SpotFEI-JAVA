@@ -7,7 +7,7 @@
 [Relatório Técnico - 5 páginas](/docs/Relatorio_Spotifei.pdf)
 <p></p>
 
-[Video](/docs/video.pdf)
+[Video](/docs/video.pdf) (https://youtu.be/0tJY1Mt-08Q)
 
 
 <p align="center">
