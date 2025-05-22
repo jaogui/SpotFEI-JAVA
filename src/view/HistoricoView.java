@@ -126,7 +126,7 @@ public void carregarDescurtidas() {
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        jTabbedPane3.addTab("tab1", jScrollPane1);
+        jTabbedPane3.addTab("historico", jScrollPane1);
 
         jButton1.setText("Menu");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -134,7 +134,7 @@ public void carregarDescurtidas() {
                 jButton1ActionPerformed(evt);
             }
         });
-        jTabbedPane3.addTab("tab2", jButton1);
+        jTabbedPane3.addTab("voltar", jButton1);
 
         jTabbedPane2.addTab("Historico", jTabbedPane3);
 
@@ -151,7 +151,7 @@ public void carregarDescurtidas() {
         ));
         jScrollPane2.setViewportView(jTable2);
 
-        jTabbedPane4.addTab("tab1", jScrollPane2);
+        jTabbedPane4.addTab("curtidas", jScrollPane2);
 
         jButton2.setText("Menu");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -159,7 +159,7 @@ public void carregarDescurtidas() {
                 jButton2ActionPerformed(evt);
             }
         });
-        jTabbedPane4.addTab("tab2", jButton2);
+        jTabbedPane4.addTab("voltar", jButton2);
 
         jTabbedPane2.addTab("Curtidas", jTabbedPane4);
 
@@ -176,7 +176,7 @@ public void carregarDescurtidas() {
         ));
         jScrollPane3.setViewportView(jTable3);
 
-        jTabbedPane5.addTab("tab1", jScrollPane3);
+        jTabbedPane5.addTab("descurtidas", jScrollPane3);
 
         jButton3.setText("Menu");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -184,7 +184,7 @@ public void carregarDescurtidas() {
                 jButton3ActionPerformed(evt);
             }
         });
-        jTabbedPane5.addTab("tab2", jButton3);
+        jTabbedPane5.addTab("voltar", jButton3);
 
         jTabbedPane2.addTab("Descurtidas", jTabbedPane5);
 
