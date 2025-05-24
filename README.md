@@ -6,7 +6,7 @@
 
 [Relatório Técnico - 5 páginas](/docs/Relatorio_Spotifei.pdf)
 <p></p>
-
+[Video]https://youtu.be/0tJY1Mt-08Q?si=G8prc7cd14pT8A-t
 
 <p align="center">
   Um projeto Java que permite explorar e interagir com informações sobre suas músicas, inspirado na lógica do Spotify.
